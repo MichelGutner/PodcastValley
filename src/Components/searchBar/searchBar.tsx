@@ -19,13 +19,12 @@ const SearchBar = ({ value, onChangeText, onClear }: Props) => {
                 placeholderTextColor={Theme.color.white}
                 style={styles.searchBar}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onClear}>
                 {value ?
                     <Icon
                         name='close'
                         size={18}
                         color={Theme.color.white}
-                        onPress={onClear}
                         style={styles.clearIcon}
                     /> : null}
             </TouchableOpacity>

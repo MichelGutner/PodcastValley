@@ -40,6 +40,10 @@ const HomeScreen = () => {
     }
   }, [searchTrack])
 
+  const handleClear = async () => {
+    setSearchTrack('');
+  }
+
   const renderItem = ({ item }) => {
     return (
       <View style={{ flexDirection: 'row', marginLeft: 5, }}>
@@ -76,12 +80,12 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
         <View style={styles.textHeader}>
-          <Text style={styles.podcastTitle}>Podcast Valley</Text>
+          <Text style={styles.podcastTitle}>PodCast Valley</Text>
         </View>
         <View>
           <SearchBar
             value={searchTrack}
-            onClear={() => { }}
+            onClear={handleClear}
             onChangeText={(text) => setSearchTrack(text)}
           />
         </View>
@@ -99,7 +103,7 @@ const HomeScreen = () => {
       </View>
       <View style={styles.borderCut}>
         <Text style={styles.lastReleases}>Todos Episódios</Text>
-        <Text style={styles.podcastSubTitle}>{'Podcasts'}</Text>
+        <Text style={styles.podcastSubTitle}>{'PodCasts'}</Text>
       </View>
       <FlatList
         data={trackPods}
