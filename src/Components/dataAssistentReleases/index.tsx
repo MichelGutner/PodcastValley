@@ -2,9 +2,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { styles } from './styles';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import TrackPlayer from 'react-native-track-player';
 
-const DataAssistent = ({ item, onPress }) => {
+const DataAssistent = ({ onPress }) => {
   return (
     <View>
       <View style={styles.container}>

@@ -1,19 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
   ActivityIndicator,
-  ButtonProps,
+  ButtonProps, 
+  StyleSheet, 
+  TouchableOpacity, 
+  View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TrackPlayer, {
-  Event,
   RepeatMode,
-  usePlaybackState,
+  usePlaybackState
 } from 'react-native-track-player';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Theme } from '../../../Themes/colors';
-
 
 type ControllerProps = ButtonProps & {
   onNext: object;

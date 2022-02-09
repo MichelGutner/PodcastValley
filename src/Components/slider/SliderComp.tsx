@@ -18,7 +18,7 @@ const ProgressBar = ({
   onSeek,
   onSlidingStart,
 }: Props) => {
-  const formatTime = secs => {
+  const formatTime = (secs: number) => {
     let minutes = Math.floor(secs / 60);
     let seconds = Math.ceil(secs - minutes * 60);
 

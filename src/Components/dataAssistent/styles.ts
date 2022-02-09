@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Theme } from "../../../Themes/colors";
 
-
-
 export const styles = StyleSheet.create({
     container: {
         width: 240,

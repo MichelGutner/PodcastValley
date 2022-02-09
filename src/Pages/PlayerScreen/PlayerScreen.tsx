@@ -11,8 +11,7 @@ import {
 } from 'react-native';
 import TrackPlayer, {
   Capability,
-  Event,
-  usePlaybackState,
+  Event, 
   useProgress,
   useTrackPlayerEvents
 } from 'react-native-track-player';
@@ -24,9 +23,6 @@ import SliderComp from '../../Components/slider/SliderComp';
 import { styles } from "./styles";
 
 const { width } = Dimensions.get('window');
-
-
-
 
 const setupPlayer = async () => {
   await TrackPlayer.setupPlayer();
@@ -54,7 +50,6 @@ const PlayerScreen = () => {
   const [trackImages, setTrackImages] = useState()
   const [trackMembers, setTrackMembers] = useState()
 
-
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
     if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
       const track = await TrackPlayer.getTrack(event.nextTrack);
@@ -71,8 +66,7 @@ const PlayerScreen = () => {
   const skipTo = async (trackId: number) => {
     await TrackPlayer.skip(trackId)
   }
-
-
+  
   useEffect(() => {
     setupPlayer();
     scrollX.addListener(({ value }) => {

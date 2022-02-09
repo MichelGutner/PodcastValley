@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Theme } from "../../../Themes/colors";
 
-
-
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -17,7 +15,7 @@ export const styles = StyleSheet.create({
     },
     podcastTitle: {
         fontSize: 20,
-        color: Theme.color.white,
+        color: Theme.color.orange,
         opacity: 0.8
     },
     headset: {

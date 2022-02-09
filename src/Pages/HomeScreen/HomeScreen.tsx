@@ -17,10 +17,8 @@ newSongsReleases.sort((a, b) => (a.id < b.id) ? 1 : (b.id < a.id) ? -1 : 0);
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [selectTrack, setSelectTrack] = useState(false);
   const [trackPods, setTrackPods] = useState(newSongs);
   const [searchTrack, setSearchTrack] = useState('');
-
 
   useEffect(() => {
     if (searchTrack === '') {
@@ -50,7 +48,7 @@ const HomeScreen = () => {
           resizeMode="contain"
           style={styles.images}
         />
-        <DataAssistent onPress={() => [setSelectTrack(true), navigation.navigate('PlayerScreen')]} item={item} />
+        <DataAssistent onPress={() => navigation.navigate('PlayerScreen')} item={item} />
       </View>
     )
   }
@@ -62,7 +60,7 @@ const HomeScreen = () => {
           resizeMode="contain"
           style={styles.imageReleases}
         >
-          <DataAssistentReleases onPress={() => { }} item={item} />
+          <DataAssistentReleases onPress={() => {}} item={item} />
         </ImageBackground>
       </View>
     )

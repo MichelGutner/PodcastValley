@@ -1,8 +1,7 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { styles } from './styles';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import TrackPlayer from 'react-native-track-player';
 
 const DataAssistent = ({ item, onPress }) => {
   const {subtitle, members, date, duration } = item;

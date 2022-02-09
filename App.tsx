@@ -1,21 +1,20 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
-import { Background } from './src/Components/background';
-import PlayerScreen from './src/Pages/PlayerScreen/PlayerScreen';
+import { LogBox, StatusBar, StyleSheet, View } from 'react-native';
 import Routes from './src/Routes/Routes';
+import { Theme } from './Themes/colors';
+
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
+]);
 
 export default function App() {
   return (
     <NavigationContainer>
-        <View style={styles.container}>
-          <StatusBar 
-          barStyle="ligth-content"
-          backgroundColor="transparent" 
-          translucent 
-        />
-          <Routes />
-        </View>
+      <View style={styles.container}>
+        <StatusBar barStyle="ligth-content" backgroundColor="transparent" translucent />
+        <Routes />
+      </View>
     </NavigationContainer>
 
   );
@@ -24,6 +23,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#8257E5',
+    backgroundColor: Theme.color.black,
   },
 });
