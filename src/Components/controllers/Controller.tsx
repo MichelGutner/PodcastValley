@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  ButtonProps,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TrackPlayer, {
@@ -11,8 +12,15 @@ import TrackPlayer, {
   RepeatMode,
   usePlaybackState,
 } from 'react-native-track-player';
+import { Theme } from '../../../Themes/colors';
 
-const Controller = ({ onNext, onPrv }) => {
+
+type ControllerProps = ButtonProps & {
+  onNext: object;
+  onPrv: object;
+}
+
+const Controller = ({ onNext, onPrv }: ControllerProps) => {
   const playbackState = usePlaybackState();
   const isPlaying = useRef('paused'); //paused play loading
   const [reapeatMode, setReapeatMode] = useState('off')
@@ -46,7 +54,7 @@ const Controller = ({ onNext, onPrv }) => {
   }
 
   useEffect(() => {
-    console.log('Player State', playbackState);
+    //console.log('Player State', playbackState);
 
     //set the player state
     if (playbackState === 'playing' || playbackState === 3) {
@@ -63,9 +71,9 @@ const Controller = ({ onNext, onPrv }) => {
       case 'playing':
         return <Icon color="orange" name="pause" size={25} />;
       case 'paused':
-        return <Icon color="#fff" name="play" size={25} />;
+        return <Icon color={Theme.color.whiteOpacity} name="play" size={25} />;
       default:
-        return <ActivityIndicator size={25} color="#fff" />;
+        return <ActivityIndicator size={25} color={Theme.color.whiteOpacity} />
     }
   };
 
@@ -80,10 +88,10 @@ const Controller = ({ onNext, onPrv }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <Icon color="#fff" name="shuffle" size={20} />
+        <Icon color={Theme.color.whiteOpacity} name="shuffle" size={20} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onPrv}>
-        <Icon color="#fff" name="skip-previous" size={20} />
+        <Icon color={Theme.color.whiteOpacity} name="skip-previous" size={20} />
       </TouchableOpacity>
       <View style={{ position: 'relative', top: 20, }}>
         <TouchableOpacity style={styles.buttonOnPlayPause} onPress={onPlayPause}>
@@ -91,11 +99,11 @@ const Controller = ({ onNext, onPrv }) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={onNext}>
-        <Icon color="#fff" name="skip-next" size={20} />
+        <Icon color={Theme.color.whiteOpacity} name="skip-next" size={20} />
       </TouchableOpacity>
       <TouchableOpacity onPress={changeRepeatMode}>
         <Icon
-          color={ reapeatMode !== 'off' ? "orange" : '#fff'} 
+          color={ reapeatMode !== 'off' ? Theme.color.orange : Theme.color.whiteOpacity} 
           name={`${reapeatIcon()}`} 
           size={20} />
       </TouchableOpacity>
@@ -111,12 +119,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'flex-end',
     width: 280,
+    marginBottom: 10,
   },
   buttonOnPlayPause: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 60, height: 60,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(255,255,255,0.1)',
     borderRadius: 10,
   }
 });

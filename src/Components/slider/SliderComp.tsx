@@ -3,6 +3,7 @@ import React from 'react';
 import {
   StyleSheet, Text, View
 } from 'react-native';
+import { Theme } from '../../../Themes/colors';
 
 type Props = {
   trackLength: any;
@@ -30,17 +31,15 @@ const ProgressBar = ({
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
-        <Text style={[styles.text, { color: 'white' }]}>
+        <Text style={[styles.text, { color: Theme.color.whiteOpacity }]}>
           {formatTime(currentPosition)}
         </Text>
-
-        <View style={{ flex: 1 }} />
-
-        <Text style={[styles.text, { width: 120, color: 'white' }]}>
+        <Text style={[styles.text, { width: 190, color: Theme.color.whiteOpacity }]}>
           {formatTime(trackLength)}
         </Text>
       </View>
       <Slider
+        maximumTrackTintColor='white'
         maximumValue={Math.max(trackLength, 1, currentPosition)}
         onSlidingStart={onSlidingStart}
         onSlidingComplete={onSeek}
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   text: {
-    color: 'rgba(255, 255, 255, 0.62)',
+    color: Theme.color.white,
     fontSize: 12,
     textAlign: 'right',
   }

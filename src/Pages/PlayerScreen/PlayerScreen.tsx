@@ -1,39 +1,49 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  View,
+  Animated,
+  Dimensions,
+  Image,
   SafeAreaView,
   Text,
-  Image,
-  FlatList,
-  Dimensions,
-  Animated,
-  StyleSheet,
+  TouchableOpacity,
+  View
 } from 'react-native';
-
 import TrackPlayer, {
-  State,
   Capability,
   Event,
-  RepeatMode,
   usePlaybackState,
   useProgress,
   useTrackPlayerEvents
 } from 'react-native-track-player';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Theme } from '../../../Themes/colors';
+import Controller from '../../Components/controllers/Controller';
+import songs from "../../Components/podcastsDB/data";
+import SliderComp from '../../Components/slider/SliderComp';
+import { styles } from "./styles";
 
-import Controller from './Controller';
-import SliderComp from './SliderComp';
-import songs from "./data"
+const { width } = Dimensions.get('window');
 
 
-const { width, height } = Dimensions.get('window');
 
-// call the your arraylist
+
 const setupPlayer = async () => {
   await TrackPlayer.setupPlayer();
+  await TrackPlayer.updateOptions({
+    capabilities: [
+      Capability.Play,
+      Capability.Pause,
+      Capability.SkipToNext,
+      Capability.SkipToPrevious,
+      Capability.PlayFromId,
+    ]
+  })
   await TrackPlayer.add(songs);
 }
 
 const PlayerScreen = () => {
+  const navigation = useNavigation();
   const scrollX = useRef(new Animated.Value(0)).current;
   const slider = useRef(null);
   const isPlayerReady = useRef(false);
@@ -56,16 +66,15 @@ const PlayerScreen = () => {
   })
   const isItFromUser = useRef(true);
   const position = useRef(Animated.divide(scrollX, width)).current;
-  const playbackState = usePlaybackState();
+  //const playbackState = usePlaybackState();
 
-  const skipTo = async (trackId) => {
+  const skipTo = async (trackId: number) => {
     await TrackPlayer.skip(trackId)
   }
 
 
   useEffect(() => {
     setupPlayer();
-
     scrollX.addListener(({ value }) => {
       const val = Math.round(value / width);
       setSongIndex(val);
@@ -107,7 +116,7 @@ const PlayerScreen = () => {
     await TrackPlayer.play();
   };
 
-  const renderItem = ({ index, item }) => {
+  const renderItem = ({ index }: any) => {
     return (
       <Animated.View
         style={{
@@ -131,19 +140,23 @@ const PlayerScreen = () => {
     );
   };
 
-  const TrackCurrentLength = (progress.duration - progress.position)
-  console.log(TrackCurrentLength)
-
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <Image
-          source={require('../assets/headset.png')}
+          source={require('../../../assets/headset.png')}
           resizeMode='contain'
           style={styles.headsetIcon} />
         <Text style={styles.playingNow}>Tocando agora</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{ marginLeft: 90 }}>
+          <Icon
+            name='chevron-double-down'
+            size={30}
+            color={Theme.color.whiteOpacity}
+          />
+        </TouchableOpacity>
       </View>
-      <SafeAreaView style={{height: 364}}>
+      <SafeAreaView style={{ height: 364 }}>
         <Animated.FlatList
           ref={slider}
           horizontal
@@ -170,43 +183,9 @@ const PlayerScreen = () => {
         onSeek={async (value) => {
           await TrackPlayer.seekTo(value)
         }} />
-
-      <Controller onNext={goNext} onPrv={goPrv} />
+      <Controller onNext={goNext} onPrv={goPrv} title={''} />
     </SafeAreaView>
   );
 }
 
 export default PlayerScreen;
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 22,
-    width: 330,
-    textAlign: 'center',
-    fontWeight: '600',
-    textTransform: 'capitalize',
-    color: '#ffffff',
-  },
-  artist: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#ffffff',
-    textTransform: 'capitalize',
-  },
-  container: {
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    height: height,
-    maxHeight: 1200,
-  },
-  headsetIcon: {
-    width: 30,
-    height: 30,
-  },
-  playingNow: {
-    fontSize: 16,
-    color: 'white',
-    marginLeft: 18.67,
-    marginTop: 3,
-  },
-});
